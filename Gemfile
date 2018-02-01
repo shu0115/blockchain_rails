@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.5.0'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -66,7 +67,7 @@ gem 'haml-rails'
 gem 'ridgepole'
 gem 'redcarpet'
 gem 'coderay'
- 
+
 group :development do
   gem 'pry-rails'
   gem 'colorize_unpermitted_parameters'
