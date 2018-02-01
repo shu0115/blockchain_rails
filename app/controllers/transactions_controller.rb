@@ -15,7 +15,7 @@ class TransactionsController < ApplicationController
       transaction = TradeTransaction.new
       transaction.blockchain_id  = blockchain_id
       transaction.block_id       = block.id
-      transaction.hash_key       = 'TODO: hash_key'
+      transaction.hash_key       = TradeTransaction.generate_unique_key
       transaction.sender_address = sender_address
       transaction.input_amount   = TradeTransaction::COMMON_BALANCE
       transaction.generate_at    = Time.current
@@ -28,6 +28,16 @@ class TransactionsController < ApplicationController
       transaction_output.trade_transaction_id = transaction.id
       transaction_output.receiver_address     = receiver_address
       transaction_output.output_amount        = output_amount
+      transaction_output.generate_at          = Time.current
+      transaction_output.save!
+
+      # 残高を自身のアドレスへ送金
+      transaction_output = TransactionOutput.new
+      transaction_output.blockchain_id        = blockchain_id
+      transaction_output.block_id             = block.id
+      transaction_output.trade_transaction_id = transaction.id
+      transaction_output.receiver_address     = sender_address
+      transaction_output.output_amount        = TradeTransaction::COMMON_BALANCE - output_amount.to_f
       transaction_output.generate_at          = Time.current
       transaction_output.save!
 

@@ -7,7 +7,7 @@ class BlockchainsController < ApplicationController
 
   def show(id)
     @blockchain = Blockchain.find_by(id: id)
-    @blocks = Block.where(blockchain_id: id).order(generate_at: :desc).all
+    @blocks     = Block.where(blockchain_id: id).order(generate_at: :desc).includes(trade_transactions: :transaction_outputs).all
   end
 
   def new

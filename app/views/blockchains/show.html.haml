@@ -56,3 +56,37 @@
       %tr
         %th proof_of_work_history
         %td= block.proof_of_work_history
+      %tr
+        %th transactions
+        %td
+          - block.trade_transactions.each do |trade|
+            %b id:
+            = trade.id
+            %br
+            %b blockchain_id:
+            = trade.blockchain_id
+            %br
+            %b block_id:
+            = trade.block_id
+            %br
+            %b hash_key:
+            = trade.hash_key
+            %br
+            %b sender_address:
+            = trade.sender_address
+            %br
+            %b input_amount:
+            = trade.input_amount
+            %br
+            %b generate_at:
+            = trade.generate_at
+            %br
+            [output]
+            %br
+            - trade.transaction_outputs.each do |output|
+              %b receiver_address:
+              = output.receiver_address
+              %br
+              %b output_amount:
+              = output.output_amount
+              %br
