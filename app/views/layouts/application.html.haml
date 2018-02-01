@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %title Blockchain Rails
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %h1= link_to Settings.app_name, root_path
+
+    = yield

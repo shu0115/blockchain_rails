@@ -1,31 +1,43 @@
-create_table 'users', force: :cascade do |t|
+create_table 'blockchains', force: :cascade do |t|
   t.string   'name'
-  t.string   'image'
-  t.string   'email'
-  t.boolean  'admin_flag', default: false, null: false
-  t.string   'last_login_provider'
-  t.datetime 'last_login_at'
-  t.text     'user_agent'
 
   t.datetime 'created_at'
   t.datetime 'updated_at'
 end
 
-create_table 'authentications', force: :cascade do |t|
-  t.integer 'user_id'
-  t.string  'provider'
-  t.string  'uid'
-  t.string  'name'
-  t.string  'nickname'
-  t.string  'image'
-  t.string  'email'
-  t.string  'location'
-  t.string  'gender'
-  t.string  'token'
-  t.string  'secret'
+create_table 'blocks', force: :cascade do |t|
+  t.integer  'blockchain_id'
+  t.string   'hash_key'
+  t.integer  'index'
+  t.string   'nonce'
+  t.string   'previous_hash'
+  t.datetime 'generate_at'
+  t.text     'proof_of_work_history'
 
   t.datetime 'created_at'
   t.datetime 'updated_at'
+end
 
-  t.index :user_id
+create_table 'trade_transactions', force: :cascade do |t|
+  t.integer 'blockchain_id'
+  t.integer 'block_id'
+  t.string  'hash_key'  # トランザクションID
+  t.string  'sender_address'
+  t.float   'input_amount'
+  t.datetime 'generate_at'
+
+  t.datetime 'created_at'
+  t.datetime 'updated_at'
+end
+
+create_table 'transaction_outputs', force: :cascade do |t|
+  t.integer  'blockchain_id'
+  t.integer  'block_id'
+  t.integer  'trade_transaction_id'
+  t.string   'receiver_address'
+  t.float    'output_amount'
+  t.datetime 'generate_at'
+
+  t.datetime 'created_at'
+  t.datetime 'updated_at'
 end

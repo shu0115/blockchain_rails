@@ -1,0 +1,58 @@
+%p#notice= notice
+
+%h3= @blockchain.name
+
+%hr
+
+%h2 取引作成
+
+= form_tag blockchain_transactions_generate_path(@blockchain) do
+  %p
+    %b 残高:
+    = number_with_delimiter(TradeTransaction::COMMON_BALANCE)
+  %p
+    .field
+      %b 送信元アドレス:
+      = text_field_tag :sender_address, '111'
+  %p
+    .field
+      %b 送信先アドレス:
+      = text_field_tag :receiver_address, '222'
+  %p
+    .field
+      %b 送信額:
+      = text_field_tag :output_amount, '100'
+
+  .actions
+    = submit_tag '送信', data: { confirm: '送金します。よろしいですか？' }
+
+%hr
+
+%h2 取引一覧
+
+- @blocks.each do |block|
+  %h3= "ブロック #{block.id}"
+
+  %table
+    %thead
+      %tr
+        %th blockchain_id
+        %td= block.blockchain_id
+      %tr
+        %th hash_key
+        %td= block.hash_key
+      %tr
+        %th index
+        %td= block.index
+      %tr
+        %th nonce
+        %td= block.nonce
+      %tr
+        %th previous_hash
+        %td= block.previous_hash
+      %tr
+        %th generate_at
+        %td= block.generate_at
+      %tr
+        %th proof_of_work_history
+        %td= block.proof_of_work_history

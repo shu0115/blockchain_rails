@@ -1,0 +1,8 @@
+%h2 Listing blockchains
+
+- @blockchains.each do |blockchain|
+  %h3= link_to blockchain.name, blockchain
+
+%br
+
+= link_to 'New Blockchain', new_blockchain_path
