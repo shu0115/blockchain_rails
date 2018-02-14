@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'blockchains#index'
 
+  resources :nodes, only: [:index, :create]
+
   resources :blockchains, only: [:index, :new, :create, :show] do
     post 'transactions/generate', to: 'transactions#generate'
   end

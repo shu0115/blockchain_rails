@@ -1,0 +1,27 @@
+%h2 Listing Nodes
+
+= form_for @node, url: nodes_path do |f|
+  .field
+    = f.label :name
+    = f.text_field :name, size: 30
+  .field
+    = f.label :end_point
+    = f.text_field :end_point, size: 30
+  .field
+    = f.label :list_path
+    = f.text_field :list_path, size: 30
+  .actions
+    = f.submit 'Save'
+
+%table
+  %thead
+    %tr
+      %th name
+      %th end_point
+      %th list_path
+  %tbody
+    - @nodes.each do |node|
+      %tr
+        %td= node.name
+        %td= node.end_point
+        %td= node.list_path
