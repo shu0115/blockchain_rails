@@ -50,6 +50,6 @@ class TransactionsController < ApplicationController
       block.save!
     end
 
-    redirect_to blockchain_path(blockchain_id), notice: '取引を追加しました。' and return
+    redirect_to root_path, notice: '取引を追加しました。' and return
   end
 end

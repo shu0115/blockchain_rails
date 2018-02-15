@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Blockchain.find_or_create_by!(
+  unique_key: Blockchain::UNIQUE_KEY,
+  name:       'BLOCKCHAIN_RAILS'
+)

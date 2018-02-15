@@ -2,11 +2,13 @@
 
 %h3= @blockchain.name
 
+= link_to 'ノード一覧', nodes_path
+
 %hr
 
 %h2 取引作成
 
-= form_tag blockchain_transactions_generate_path(@blockchain) do
+= form_tag block_transactions_generate_path(@blockchain) do
   %p
     %b 残高:
     = number_with_delimiter(TradeTransaction::COMMON_BALANCE)
