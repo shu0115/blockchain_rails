@@ -8,7 +8,7 @@
 
 %h2 取引作成
 
-= form_tag block_transactions_generate_path(@blockchain) do
+= form_tag transactions_path do
   %p
     %b 残高:
     = number_with_delimiter(TradeTransaction::COMMON_BALANCE)
