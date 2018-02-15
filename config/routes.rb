@@ -2,9 +2,14 @@ Rails.application.routes.draw do
   # root to: 'blockchains#index'
   root to: 'blocks#index'
 
-  resources :nodes,        only: [:index, :create]
   resources :blocks,       only: [:index]
   resources :transactions, only: [:create]
+
+  resources :nodes, only: [:index, :create] do
+    collection do
+      get 'list_api'
+    end
+  end
 
   # resources :blockchains, only: [:index, :new, :create, :show] do
   #   post 'transactions/generate', to: 'transactions#generate'
