@@ -67,6 +67,7 @@ gem 'haml-rails'
 gem 'ridgepole'
 gem 'redcarpet'
 gem 'coderay'
+gem 'rest-client'
 
 group :development do
   gem 'pry-rails'
