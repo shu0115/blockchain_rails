@@ -12,4 +12,10 @@ class NodesController < ApplicationController
 
     redirect_to nodes_path, notice: 'ノードを登録しました。'
   end
+
+  def list_api
+    nodes = Node.all
+
+    render json: { nodes: nodes } and return
+  end
 end
