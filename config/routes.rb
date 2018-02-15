@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :blocks,       only: [:index]
   resources :transactions, only: [:create]
 
-  resources :nodes, only: [:index, :create] do
+  resources :nodes, only: [:index, :create, :destroy] do
     collection do
       get 'list_api'
     end

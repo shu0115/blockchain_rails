@@ -18,4 +18,11 @@ class NodesController < ApplicationController
 
     render json: { nodes: nodes } and return
   end
+
+  def destroy(id)
+    node = Node.find_by(id: id)
+    node.destroy
+
+    redirect_to nodes_path, notice: 'ノードを削除しました。'
+  end
 end
