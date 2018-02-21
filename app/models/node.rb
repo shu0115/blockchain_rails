@@ -1,6 +1,7 @@
 class Node < ApplicationRecord
 
   class << self
+    # bundle exec rails runner "Node.list_sync"
     def list_sync
       nodes = Node.all
 
