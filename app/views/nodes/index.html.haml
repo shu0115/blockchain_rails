@@ -1,4 +1,4 @@
-%h2 Listing Nodes
+%h2= link_to 'Listing Nodes', nodes_path
 
 = form_for @node, url: nodes_path do |f|
   .field
@@ -19,9 +19,11 @@
       %th name
       %th end_point
       %th list_path
+      %th
   %tbody
     - @nodes.each do |node|
       %tr
         %td= node.name
         %td= node.end_point
         %td= node.list_path
+        %td= link_to 'Delete', node_path(node), method: :delete, data: { confirm: "「#{node.name}」を削除します。よろしいですか？" }
