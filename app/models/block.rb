@@ -42,7 +42,7 @@ class Block < ApplicationRecord
           response_body = JSON.parse(response.body).deep_symbolize_keys
 
           response_body[:blocks].each do |block|
-            Block.create_with(
+            mine_block = Block.create_with(
               blockchain_id:         block[:blockchain_id],
               index:                 block[:index],
               generate_at:           block[:generate_at],
@@ -58,7 +58,7 @@ class Block < ApplicationRecord
               block[:transactions].each do |transaction|
                 TradeTransaction.create_with(
                   blockchain_id:  transaction[:blockchain_id],
-                  block_id:       transaction[:block_id],
+                  block_id:       mine_block.id,
                   sender_address: transaction[:sender_address],
                   input_amount:   transaction[:input_amount],
                   generate_at:    transaction[:generate_at],
@@ -72,7 +72,7 @@ class Block < ApplicationRecord
               block[:transaction_outputs].each do |transaction|
                 TransactionOutput.create_with(
                   blockchain_id:        transaction[:blockchain_id],
-                  block_id:             transaction[:block_id],
+                  block_id:             mine_block.id,
                   receiver_address:     transaction[:receiver_address],
                   output_amount:        transaction[:output_amount],
                   generate_at:          transaction[:generate_at],
