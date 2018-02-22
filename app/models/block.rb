@@ -94,8 +94,8 @@ class Block < ApplicationRecord
               )
             end
           end
-        # rescue => exception
-        #   puts "[ ---------- exception ---------- ]"; exception.message.tapp;
+        rescue => exception
+          puts "[ ---------- exception ---------- ]"; exception.message.tapp;
         end
       end
     end
