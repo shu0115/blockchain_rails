@@ -56,7 +56,7 @@ class Block < ApplicationRecord
 
             if block[:transactions].present?
               block[:transactions].each do |transaction|
-                TradeTransaction.create_with(
+                trade_transaction = TradeTransaction.create_with(
                   blockchain_id:  transaction[:blockchain_id],
                   block_id:       mine_block.id,
                   sender_address: transaction[:sender_address],
@@ -65,21 +65,21 @@ class Block < ApplicationRecord
                 ).find_or_create_by!(
                   hash_key: transaction[:hash_key],
                 )
-              end
-            end
 
-            if block[:transaction_outputs].present?
-              block[:transaction_outputs].each do |transaction|
-                TransactionOutput.create_with(
-                  blockchain_id:        transaction[:blockchain_id],
-                  block_id:             mine_block.id,
-                  receiver_address:     transaction[:receiver_address],
-                  output_amount:        transaction[:output_amount],
-                  generate_at:          transaction[:generate_at],
-                  trade_transaction_id: transaction[:trade_transaction_id],
-                ).find_or_create_by!(
-                  hash_key: transaction[:hash_key],
-                )
+                if block[:transaction_outputs].present?
+                  block[:transaction_outputs].each do |transaction|
+                    TransactionOutput.create_with(
+                      blockchain_id:        transaction[:blockchain_id],
+                      block_id:             mine_block.id,
+                      receiver_address:     transaction[:receiver_address],
+                      output_amount:        transaction[:output_amount],
+                      generate_at:          transaction[:generate_at],
+                      trade_transaction_id: trade_transaction.id,
+                    ).find_or_create_by!(
+                      hash_key: transaction[:hash_key],
+                    )
+                  end
+                end
               end
             end
           end
@@ -94,8 +94,8 @@ class Block < ApplicationRecord
               )
             end
           end
-        rescue => exception
-          puts "[ ---------- exception ---------- ]"; exception.message.tapp;
+        # rescue => exception
+        #   puts "[ ---------- exception ---------- ]"; exception.message.tapp;
         end
       end
     end
