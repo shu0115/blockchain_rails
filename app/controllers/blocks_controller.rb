@@ -18,8 +18,13 @@ class BlocksController < ApplicationController
   end
 
   def list_api
-    blocks = Block.all
+    block_array = []
+    blocks = Block.includes(:trade_transactions).all
 
-    render json: { blocks: blocks } and return
+    blocks.each do |block|
+      block_array << block.attributes.merge(transactions: block.trade_transactions)
+    end
+
+    render json: { blocks: block_array, confirmations: Confirmation.all } and return
   end
 end

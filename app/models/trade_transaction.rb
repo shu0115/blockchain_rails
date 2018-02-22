@@ -1,5 +1,5 @@
 class TradeTransaction < ApplicationRecord
-  belongs_to :blockchain
+  belongs_to :blockchain, optional: true
   belongs_to :block
   has_many   :transaction_outputs
 

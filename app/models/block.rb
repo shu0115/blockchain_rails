@@ -26,7 +26,7 @@ class Block < ApplicationRecord
     def calc_hash_with_nonce(block: nil, nonce: 0)
       Digest::SHA256.hexdigest({
         timestamp:     block.generate_at.to_i,
-        transactions:  block.trade_transactions.to_json,
+        transactions:  block.trade_transactions.pluck(:hash_key).to_json,
         previous_hash: block.previous_hash,
         nonce:         nonce
       }.to_json)
@@ -53,6 +53,31 @@ class Block < ApplicationRecord
             ).find_or_create_by!(
               hash_key: block[:hash_key],
             )
+
+            if block[:transactions].present?
+              block[:transactions].each do |transaction|
+                TradeTransaction.create_with(
+                  blockchain_id:  transaction[:blockchain_id],
+                  block_id:       transaction[:block_id],
+                  sender_address: transaction[:sender_address],
+                  input_amount:   transaction[:input_amount],
+                  generate_at:    transaction[:generate_at],
+                ).find_or_create_by!(
+                  hash_key: transaction[:hash_key],
+                )
+              end
+            end
+          end
+
+          if response_body[:confirmations].present?
+            response_body[:confirmations].each do |confirmation|
+              Confirmation.create_with(
+                host:   confirmation[:host],
+                status: confirmation[:status],
+              ).find_or_create_by!(
+                block_hash_key: confirmation[:block_hash_key],
+              )
+            end
           end
         rescue => exception
           puts "[ ---------- exception ---------- ]"; exception.message.tapp;
