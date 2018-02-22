@@ -27,6 +27,7 @@ class TransactionsController < ApplicationController
       transaction_output = TransactionOutput.new
       transaction_output.blockchain_id        = blockchain.id
       transaction_output.block_id             = block.id
+      transaction_output.hash_key             = TradeTransaction.generate_unique_key
       transaction_output.trade_transaction_id = transaction.id
       transaction_output.receiver_address     = receiver_address
       transaction_output.output_amount        = output_amount
@@ -37,6 +38,7 @@ class TransactionsController < ApplicationController
       transaction_output = TransactionOutput.new
       transaction_output.blockchain_id        = blockchain.id
       transaction_output.block_id             = block.id
+      transaction_output.hash_key             = TradeTransaction.generate_unique_key
       transaction_output.trade_transaction_id = transaction.id
       transaction_output.receiver_address     = sender_address
       transaction_output.output_amount        = TradeTransaction::COMMON_BALANCE - output_amount.to_f

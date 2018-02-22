@@ -22,7 +22,7 @@ class BlocksController < ApplicationController
     blocks = Block.includes(:trade_transactions).all
 
     blocks.each do |block|
-      block_array << block.attributes.merge(transactions: block.trade_transactions)
+      block_array << block.attributes.merge(transactions: block.trade_transactions, transaction_outputs: block.transaction_outputs)
     end
 
     render json: { blocks: block_array, confirmations: Confirmation.all } and return

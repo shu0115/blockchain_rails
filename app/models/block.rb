@@ -67,6 +67,21 @@ class Block < ApplicationRecord
                 )
               end
             end
+
+            if block[:transaction_outputs].present?
+              block[:transaction_outputs].each do |transaction|
+                TransactionOutput.create_with(
+                  blockchain_id:        transaction[:blockchain_id],
+                  block_id:             transaction[:block_id],
+                  receiver_address:     transaction[:receiver_address],
+                  output_amount:        transaction[:output_amount],
+                  generate_at:          transaction[:generate_at],
+                  trade_transaction_id: transaction[:trade_transaction_id],
+                ).find_or_create_by!(
+                  hash_key: transaction[:hash_key],
+                )
+              end
+            end
           end
 
           if response_body[:confirmations].present?

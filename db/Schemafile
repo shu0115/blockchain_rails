@@ -35,6 +35,7 @@ end
 create_table 'transaction_outputs', force: :cascade do |t|
   t.integer  'blockchain_id'
   t.integer  'block_id'
+  t.string   'hash_key'  # トランザクションID
   t.integer  'trade_transaction_id'
   t.string   'receiver_address'
   t.float    'output_amount'

@@ -94,6 +94,9 @@
             [output]
             %br
             - trade.transaction_outputs.each do |output|
+              %b hash_key:
+              = output.hash_key
+              %br
               %b receiver_address:
               = output.receiver_address
               %br
