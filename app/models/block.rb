@@ -87,14 +87,7 @@ class Block < ApplicationRecord
 
     # bundle exec rails runner "Block.confirmation_block"
     def confirmation_block
-      keys       = Confirmation.pluck(:block_hash_key)
-      block_keys = Block.pluck(:hash_key)
-
-      if keys.blank?
-        blocks = Block.all
-      else
-        blocks = Block.where('hash_key NOT IN(?)', keys.compact)
-      end
+      blocks = Block.all
 
       blocks.each do |block|
         if Block.calc_hash_with_nonce(block: block, nonce: block.nonce.to_i).start_with?(Block::DIFFICULTY)
