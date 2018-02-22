@@ -4,6 +4,7 @@
 
 %p= link_to 'ノード一覧', nodes_path
 %p= link_to '取引確認', confirmation_blocks_path
+%p= link_to 'ブロック同期', list_sync_blocks_path
 
 %hr
 
@@ -38,6 +39,9 @@
 
   %table
     %thead
+      %tr
+        %th id
+        %td= block.id
       %tr
         %th blockchain_id
         %td= block.blockchain_id

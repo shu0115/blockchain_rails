@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :blocks,       only: [:index] do
     collection do
       get 'confirmation'
+      get 'list_api'
+      get 'list_sync'
     end
   end
 

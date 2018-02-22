@@ -32,6 +32,34 @@ class Block < ApplicationRecord
       }.to_json)
     end
 
+    # bundle exec rails runner "Block.list_sync"
+    def list_sync
+      nodes = Node.all
+
+      nodes.each do |node|
+        begin
+          response = RestClient.get("#{node.end_point}/blocks/list_api")
+          response_body = JSON.parse(response.body).deep_symbolize_keys
+
+          response_body[:blocks].each do |block|
+            Block.create_with(
+              blockchain_id:         block[:blockchain_id],
+              index:                 block[:index],
+              generate_at:           block[:generate_at],
+              nonce:                 block[:nonce],
+              previous_hash:         block[:previous_hash],
+              proof_of_work_history: block[:proof_of_work_history],
+              confirmation_count:    block[:confirmation_count],
+            ).find_or_create_by!(
+              hash_key: block[:hash_key],
+            )
+          end
+        rescue => exception
+          puts "[ ---------- exception ---------- ]"; exception.message.tapp;
+        end
+      end
+    end
+
     # bundle exec rails runner "Block.confirmation_block"
     def confirmation_block
       keys       = Confirmation.pluck(:block_hash_key)

@@ -9,4 +9,16 @@ class BlocksController < ApplicationController
 
     redirect_to blocks_path and return
   end
+
+  def list_sync
+    Block.list_sync
+
+    redirect_to blocks_path and return
+  end
+
+  def list_api
+    blocks = Block.all
+
+    render json: { blocks: blocks } and return
+  end
 end
