@@ -1,5 +1,7 @@
 %h2= link_to 'Listing Nodes', nodes_path
 
+%p= link_to 'ノード同期', list_sync_nodes_path
+
 = form_for @node, url: nodes_path do |f|
   .field
     = f.label :name

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :nodes, only: [:index, :create, :destroy] do
     collection do
       get 'list_api'
+      get 'list_sync'
     end
   end
 

@@ -13,6 +13,12 @@ class NodesController < ApplicationController
     redirect_to nodes_path, notice: 'ノードを登録しました。'
   end
 
+  def list_sync
+    Node.list_sync
+
+    redirect_to nodes_path and return
+  end
+
   def list_api
     nodes = Node.all
 
