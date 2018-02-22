@@ -50,9 +50,9 @@ class Block < ApplicationRecord
             host:           Settings.http_host,
             status:         true,
           )
-        end
 
-        block.update!(confirmation_count: Confirmation.where(block_hash_key: block.hash_key).count)
+          block.update!(confirmation_count: Confirmation.where(block_hash_key: block.hash_key).count)
+        end
       end
     end
   end
