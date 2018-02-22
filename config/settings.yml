@@ -1,1 +1,3 @@
 app_name: 'Blockchain Rails'
+
+http_host: <%= 'localhost:3000' || ENV['HTTP_HOST'] %>

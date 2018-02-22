@@ -2,7 +2,8 @@
 
 %h3= @blockchain.name
 
-= link_to 'ノード一覧', nodes_path
+%p= link_to 'ノード一覧', nodes_path
+%p= link_to '取引確認', confirmation_blocks_path
 
 %hr
 
@@ -55,6 +56,9 @@
       %tr
         %th generate_at
         %td= block.generate_at
+      %tr
+        %th confirmation_count
+        %td= block.confirmation_count
       %tr
         %th proof_of_work_history
         %td= block.proof_of_work_history

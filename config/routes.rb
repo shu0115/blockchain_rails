@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   # root to: 'blockchains#index'
   root to: 'blocks#index'
 
-  resources :blocks,       only: [:index]
+  resources :blocks,       only: [:index] do
+    collection do
+      get 'confirmation'
+    end
+  end
+
   resources :transactions, only: [:create]
 
   resources :nodes, only: [:index, :create, :destroy] do
