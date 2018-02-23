@@ -1,3 +1,3 @@
-app_name: 'Blockchain Rails'
+app_name: <%= ENV['APP_NAME'] || 'Blockchain Rails' %>
 
 http_host: <%= ENV['HTTP_HOST'] || 'localhost:3000' %>
